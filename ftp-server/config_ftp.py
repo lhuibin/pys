@@ -1,5 +1,5 @@
-ip = "127.0.0.1"
-port = '1900'
+ip = "0.0.0.0"
+port = '1901'
 #长传速度 300 kb/sec
 max_upload = 300*1024
 #下载速度 300 kb/sec
@@ -12,10 +12,10 @@ max_pre_ip = 10
 #被动链接端口 这个必须比客户端连接数多 否者 客户端不能链接
 passive_ports = (2223, 2233)
 #是否允许匿名访问
-enable_anonymous = False
+enable_anonymous = True
 
 #打开记录？ 默认Flaser
-enable_logging = False
+enable_logging = True
 # 日志记录文件名称
 logging_name = r'pyftp.log'
 
@@ -24,4 +24,4 @@ masquerade_address = ""
 # 添加欢迎标题 主要是使用终端登录的查看用户
 welcom_banner=r"Welcome to private ftp"
 # 默认的匿名用户路径
-anonymous_path = r"/home/"
+anonymous_path = r"/Users/lhuibin/py/"
