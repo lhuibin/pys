@@ -60,7 +60,6 @@ class TrainsCollection:
 			initial = train_no[0].lower()
 			# 如果没有指定车型 或 该车次在制定的车型中，则处理添加此车次数据
 			if not self.options or initial in self.options:
-				#？？？？？？要添加所有座位类型，还没有添加完？？？？？？？
 				# 构造车次信息 【车次 车站 时间 历时 商务 特等 一等 二等 高级软卧 软卧 硬卧 软座 硬座 无座】
 				train = [
 					train_no,        
