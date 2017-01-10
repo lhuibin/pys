@@ -1,9 +1,16 @@
 #!/usr/bin/env python
 # coding:utf-8
-
 '''
-问题1：exit(0) 中加数字什么意思
+用法 : 程序 [用户名] [密码字符或者密码文件（.txt格式）] [密码长度] [线程数]
+	   如果是通过指定字符构造密码词典，不得包含.txt
+'''
+'''
+问题1：此程序待测试
 问题2：以上几个模块了解 
+问题3：类中__init__函数一定要放在第一个吗？
+问题4：构造密码字符中包含保留转字符处理方案(\n,%s)等
+答案：characters 前加'r'
+问题5：修改一下，破解路由器密码
 
 '''
 import requests
@@ -19,16 +26,32 @@ class Bruter(object):
 	# threads 线程个数 pwd_len 为生成的测试口令的长度
 	def __init__(self,user,characters,pwd_len,threads):
 		self.user = user
+		self.characters = characters
 		# 破解成功的标志
 		self.found = False
 		self.threads = threads
 		print('构建待测试口令队列中……')
 		# 包含所有测试口令的队列
 		self.pwd_queue = Queue.Queue()
-		for pwd in list(itertools.product(characters,repeat=pwd_len)):
+
+		for pwd in pwd_pool:
 			self.pwd_queue.put(''.join(pwd))
 		self.result = None
 		print('构建成功')
+	
+	#构造密码字典		
+	def __pwd_pool(self):
+		# 读取现有密码字典
+		if '.txt' in characters:
+			pwd_pool = []
+			with open(self.characters, 'rb') as f:
+				for i in f.readlines():
+					pwd_pool.append(i.strip())
+		# 根据规则构造密码字典
+		else:
+			pwd_pool = list(itertools.product(characters, repeat = pwd_len))
+
+		return pwd_pool
 
 	def brute(self):
 		for i in range(self.threads):
