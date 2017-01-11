@@ -7,7 +7,7 @@
 
 import requests
 
-url = 'https://www.f2pool.com/static/js/jquery-1.9.1.min.js?v=397754ba49e9e0cf4e7c190da78dda05'
+url = 'https://www.f2pool.com/zec/t1b4jWWao8aGzjEd5PCkUCs54PsckRCjLbN'
 
 r = requests.get(url)
 print r.text
