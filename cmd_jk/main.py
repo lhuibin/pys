@@ -6,8 +6,9 @@
 '''
 
 import requests
+import re
 
 url = 'https://www.f2pool.com/zec/t1b4jWWao8aGzjEd5PCkUCs54PsckRCjLbN'
 
 r = requests.get(url)
-print r.text
+sol = re.findall('\d{1,3}'+'\s', r.text)
