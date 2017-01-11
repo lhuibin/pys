@@ -12,8 +12,7 @@ url = 'https://www.f2pool.com/zec/t1b4jWWao8aGzjEd5PCkUCs54PsckRCjLbN'
 
 r = requests.get(url)
 sol_raw = re.findall('[>]'+'\d{1,3}'+'\s'+'[sol]', r.text)
-print(type(sol_raw))
-print(type(sol_raw[3]))
-#sol = re.findall('\d{1,3}',sol_raw)
 
-print(sol_raw)
+sol = re.findall('\d{1,3}',str(sol_raw))
+
+print('15min:',sol[3])
