@@ -1,21 +1,24 @@
-import re
-
-url = '''<tr>
-<td style="text-align: center; vertical-align: middle;">e3</td>
-<td style="text-align: center; vertical-align: middle;">16 sol/s</td>
-<td style="text-align: center; vertical-align: middle;">15 sol/s</td>
-<td style="text-align: center; vertical-align: middle;">0.6%</td>
-<td style="text-align: center; vertical-align: middle;"><script>document.write(formatTimestampUptoMinute(new Date(1484099475)))</script></td>
-</tr>
-
-<tr>
-<td style="text-align: center; vertical-align: middle;">gtx980</td>
-<td style="text-align: center; vertical-align: middle;">270 sol/s</td>
-<td style="text-align: center; vertical-align: middle;">213 sol/s</td>
-<td style="text-align: center; vertical-align: middle;">0.7%</td>
-<td style="text-align: center; vertical-align: middle;"><script>document.write(formatTimestampUptoMinute(new Date(1484099462)))</script></td>
-</tr>'''
-
-stations = re.findall('\d{1,3}'+'\s', url)
-print stations
-#pprint(dict(stations), indent=4) +'[sol/s] '[>]'+
+#import os
+#os.system("c:\\sam.bat")
+ 
+import subprocess
+'''
+cmd = 'cmd.exe c:\\miners\0.1.0b\sam.bat'
+p = subprocess.Popen("cmd.exe /c" + r"c:\\miners\0.1.0b\sam.bat abc", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+curline = p.stdout.readline()
+while(curline != b''):
+    print(curline)
+    curline = p.stdout.readline()
+     
+p.wait()
+print(p.returncode)
+'''
+cmd = 'miner.exe c:\\miners\0.1.0b\f2pool.bat'
+p = subprocess.Popen("miner.exe /c" + r"c:\\miners\0.1.0b\f2pool.bat", stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+curline = p.stdout.readline()
+while(curline != b''):
+    print(curline)
+    curline = p.stdout.readline()
+     
+p.wait()
+print(p.returncode)
