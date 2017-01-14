@@ -22,28 +22,28 @@ while True:
 		sol = re.findall('\d{1,3}',str(sol_raw))
 		sol15 = int(sol[2])
 		print('15min:',sol[2])
-		print(a)
+		#print(a)
 
 
 		if sol15 < 1000:
 			a=r"f2pool.bat"
 			a= os.path.sep.join(a.split(r'/'))
-			print a
+			print(a)
 			os.system(a)
 		
 		
 	except Exception as e:
 		logging.exception(e)
-		logger = logging.getLogger("simple_example")
-		logger.setLevel(logging.DEBUG)
-		# 建立一个filehandler来把日志记录在文件里，级别为debug以上
-		fh = logging.FileHandler("spam.log")
-		fh.setLevel(logging.DEBUG)
+		logger = logging.getLogger("挖矿监控")
+		logger.setLevel(logging.ERROR)
+		# 建立一个filehandler来把日志记录在文件里，级别为ERROR以上
+		fh = logging.FileHandler("wakuang.log")
+		fh.setLevel(logging.ERROR)
 		# 建立一个streamhandler来把日志打在CMD窗口上，级别为error以上
 		ch = logging.StreamHandler()
 		ch.setLevel(logging.ERROR)
 		# 设置日志格式
-		formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+		formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(e)s")
 		ch.setFormatter(formatter)
 		fh.setFormatter(formatter)
 		#将相应的handler添加在logger对象中
