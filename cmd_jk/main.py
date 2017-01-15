@@ -22,7 +22,6 @@ while True:
 		sol = re.findall('\d{1,3}',str(sol_raw))
 		sol15 = int(sol[2])
 		print('15min:',sol[2])
-		print a
 
 
 		if sol15 < 1000:
