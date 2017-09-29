@@ -20,7 +20,7 @@ while True:
 		r = requests.get(url)
 		sol_raw = re.findall('\d{1,3}'+'.'+'\d{1,3}'+'\s'+'[sol]', r.text)
 		sol = re.findall('\d{1,3}'+'.'+'\d{1,3}',str(sol_raw))
-		print('15min:',sol[0],'sol/s')
+		print'15min:',sol[0],'sol/s'
 		sol15 = float(sol[0])
 		if sol15 < 100:
 			a=r"f2pool.bat"
