@@ -18,13 +18,11 @@ while True:
 	try:
 		url = 'https://www.f2pool.com/zec/t1b4jWWao8aGzjEd5PCkUCs54PsckRCjLbN'
 		r = requests.get(url)
-		sol_raw = re.findall('[>]'+'\d{1,3}'+'\s'+'[sol]', r.text)
-		sol = re.findall('\d{1,3}',str(sol_raw))
-		sol15 = int(sol[2])
-		print('15min:',sol[2])
-
-
-		if sol15 < 1000:
+		sol_raw = re.findall('\d{1,3}'+'.'+'\d{1,3}'+'\s'+'[sol]', r.text)
+		sol = re.findall('\d{1,3}'+'.'+'\d{1,3}',str(sol_raw))
+		print('15min:',sol[0],'sol/s')
+		sol15 = float(sol[0])
+		if sol15 < 100:
 			a=r"f2pool.bat"
 			a= os.path.sep.join(a.split(r'/'))
 			print(a)
